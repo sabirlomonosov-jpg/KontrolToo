@@ -9,53 +9,86 @@ namespace KontrolToo
     {
         public static void KytuseKalkulaator()
         {
-            Console.Write("Sisesta vahemaa: ");
-            int km = int.Parse(Console.ReadLine());
+            try
+            {
+                Console.Write("Sisesta vahemaa: ");
+                if (!int.TryParse(Console.ReadLine(), out int km))
+                {
+                    Console.WriteLine("VIGA: Palun sisesta korrektne täisarv vahemaaks.");
+                    return;
+                }
 
-            Console.Write("Sisesta kütusekulu 100 km kohta(liitrit): ");
-            int l = int.Parse(Console.ReadLine());
+                Console.Write("Sisesta kütusekulu 100 km kohta(liitrit): ");
+                if (!int.TryParse(Console.ReadLine(), out int l))
+                {
+                    Console.WriteLine("VIGA: Palun sisesta korrektne täisarv kütusekulu jaoks.");
+                    return;
+                }
 
-            Console.Write("Sisesta kütuse hind: ");
-            int hind = int.Parse(Console.ReadLine());
+                Console.Write("Sisesta kütuse hind: ");
+                if (!double.TryParse(Console.ReadLine(), out double hind))
+                {
+                    Console.WriteLine("VIGA: Palun sisesta korrektne number kütuse hinna jaoks.");
+                    return;
+                }
 
-            double kütuseKogus = (km / 100.0) * l;
-            double kütuseHind = (km / 100.0) * l * hind;
-            Console.WriteLine($"kütuse kogus: {kütuseKogus} liitrit. kütuse hind: {kütuseHind}");
+                double kütuseKogus = (km / 100.0) * l;
+                double kütuseHind = (km / 100.0) * l * hind;
+                Console.WriteLine($"kütuse kogus: {kütuseKogus} liitrit. kütuse hind: {kütuseHind}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
         }
         public static void HindaIsikukood()
         {
-            Console.Write("Sisesta teie isikukood: ");
-            string isik = Console.ReadLine();
-
-            int length = isik?.Length ?? 0;
-            string lengthStr = length.ToString();
-
-            int.TryParse(lengthStr, out int parsedLength);
-            if (parsedLength == 11)
+            try
             {
-                string sugu = "";
-                if (isik[0] == '1' || isik[0] == '3' || isik[0] == '5')
+                Console.Write("Sisesta teie isikukood: ");
+                string isik = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(isik))
                 {
+                    Console.WriteLine("VIGA: Isikukood ei tohi olla tühi.");
+                    return;
+                }
+
+                if (isik.Length != 11)
+                {
+                    Console.WriteLine("VIGA: Teie isikukood on vale pikkusega (oodatud 11).");
+                    return;
+                }
+
+               
+                for (int i = 0; i < isik.Length; i++)
+                {
+                    if (!char.IsDigit(isik[i]))
+                    {
+                        Console.WriteLine("VIGA: Isikukood peab sisaldama ainult numbreid.");
+                        return;
+                    }
+                }
+
+                
+                string sugu;
+                char first = isik[0];
+                if (first == '1' || first == '3' || first == '5' || first == '7')
                     sugu = "mees";
-                }
-                else if (isik[0] == '2' || isik[0] == '4' || isik[0] == '6')
-                {
+                else if (first == '2' || first == '4' || first == '6' || first == '8')
                     sugu = "naine";
-                }
                 else
-                {
                     sugu = "tundmatu";
-                }
+
                 string yy = isik.Substring(1, 2);
                 string mm = isik.Substring(3, 2);
                 string dd = isik.Substring(5, 2);
 
-                Console.WriteLine($"Te olete {sugu}, sundinud {dd}.{mm}.{yy}");
-
+                Console.WriteLine($"Te olete {sugu}, sündinud {dd}.{mm}.{yy}");
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("VIGA: Teie isikukood sisetanud valvesti!");
+                Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
         public static void TaringuMang()
