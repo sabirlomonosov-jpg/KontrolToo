@@ -8,30 +8,42 @@ namespace KontrolToo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Tere tulemast KontrolToo rakendusse!");
-            Console.WriteLine("Vali funktsioon:");
-            Console.WriteLine("1 - Kütusekalkulaator");
-            Console.WriteLine("2 - Isikuandmete analüüs");
-            Console.WriteLine("3 - Täringumäng");
-            Console.WriteLine("4 - Välju rakendusest");
-            Console.Write("Sisesta valik (1, 2, 3, 4): ");
-            string choice = Console.ReadLine();
-            switch (choice)
+            while (true)
             {
-                case "1":
-                    Subfunctions.KütuseHind();
-                    break;
-                case "2":
-                    Subfunctions.HindaPsikukuude();
-                    break;
-                case "3":
-                    Subfunctions.DiceMang();
-                    break;
-                case "4":
-                    break;
-                default:
-                    Console.WriteLine("VIGA: Valik ei kehtiv!");
-                    break;
+
+
+                Console.WriteLine("Tere tulemast KontrolToo rakendusse!");
+                Console.WriteLine(" ");
+                Console.WriteLine("Vali funktsioon:");
+                Console.WriteLine("1 - Kütusekalkulaator");
+                Console.WriteLine("2 - Isikuandmete analüüs");
+                Console.WriteLine("3 - Täringumäng");
+                Console.WriteLine("4 - Palgaarvestus");
+                Console.WriteLine("0 - Välju");
+                Console.Write("Sisesta valik (1, 2, 3, 4, 0): ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        Alamfunktsioonid.KytuseKalkulaator();
+                        break;
+                    case "2":
+                        Alamfunktsioonid.HindaIsikukood();
+                        break;
+                    case "3":
+                        Alamfunktsioonid.TaringuMang();
+                        break;
+                    case "4":
+                        Alamfunktsioonid.ArvutaPalk(0);
+                        break;
+                    case "0":
+                        break;
+                    default:
+                        Console.WriteLine("VIGA: Valik ei kehtiv!");
+                        break;
+
+                }
+
             }
         }
     }

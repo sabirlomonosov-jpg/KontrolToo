@@ -5,9 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace KontrolToo
 {
-    internal class Subfunctions
+    internal class Alamfunktsioonid
     {
-        public static void KütuseHind()
+        public static void KytuseKalkulaator()
         {
             Console.Write("Sisesta vahemaa: ");
             int km = int.Parse(Console.ReadLine());
@@ -22,7 +22,7 @@ namespace KontrolToo
             double kütuseHind = (km / 100.0) * l * hind;
             Console.WriteLine($"kütuse kogus: {kütuseKogus} liitrit. kütuse hind: {kütuseHind}");
         }
-        public static void HindaPsikukuude()
+        public static void HindaIsikukood()
         {
             Console.Write("Sisesta teie isikukood: ");
             string isik = Console.ReadLine();
@@ -58,7 +58,7 @@ namespace KontrolToo
                 Console.WriteLine("VIGA: Teie isikukood sisetanud valvesti!");
             }
         }
-        public static void DiceMang()
+        public static void TaringuMang()
         {
             var rnd = new Random();
             var sums = new List<int>();
@@ -79,6 +79,25 @@ namespace KontrolToo
             Console.WriteLine($"Identsete numbrite arv: {doublesCount}");
             Console.WriteLine($"Kõigi visete kogusumma: {totalSum}");
 
+        }
+
+        public static Tuple<double, double> ArvutaPalk(double brutopalk)
+        {
+            double maksuvabatulu = 0;
+
+            if (brutopalk < 1200)
+            {
+                maksuvabatulu = 654;
+            }
+
+            double tulubaas = brutopalk - maksuvabatulu;
+
+            double tookindlustus = brutopalk * 0.016;
+            double kogumispension = brutopalk * 0.02;
+
+            double netopalk = brutopalk - tookindlustus - kogumispension;
+
+            return new Tuple<double, double>(maksuvabatulu, netopalk);
         }
     }
 }
